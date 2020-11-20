@@ -24,7 +24,7 @@ class SeleniumMiddleware:
         option.add_experimental_option('excludeSwitches', ['enable-automation'])  # 以键值对的形式加入参数
         # self.browser.start_session(webdriver.DesiredCapabilities.CHROME)
 
-        self.browser = webdriver.Chrome(executable_path='./chromedriver', options=option)
+        self.browser = webdriver.Chrome(executable_path='./chromedriver.exe', options=option)
         self.browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
             "source": """
             Object.defineProperty(navigator, 'webdriver', {
