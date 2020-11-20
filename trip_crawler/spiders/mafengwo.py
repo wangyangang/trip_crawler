@@ -24,8 +24,10 @@ class MafengwoSpider(scrapy.Spider):
         url1 = 'http://www.mafengwo.cn/search/q.php?q=%E5%8F%88%E8%A7%81%E5%B9%B3%E9%81%A5%E5%89%A7%E5%9C%BA&p=1&t=notes&kt=1'
         url2 = 'http://www.mafengwo.cn/search/q.php?q=%E5%8F%88%E8%A7%81%E5%B9%B3%E9%81%A5%E5%89%A7%E5%9C%BA&p=2&t=notes&kt=1'
 
-        yield scrapy.Request(url1, headers=self.headers, callback=self.parse, cb_kwargs={'page': 1}, dont_filter=True)
-        yield scrapy.Request(url2, headers=self.headers, callback=self.parse, cb_kwargs={'page': 2}, dont_filter=True)
+        yield scrapy.Request(url1, callback=self.parse,
+                             cb_kwargs={'page': 1}, dont_filter=True)
+        yield scrapy.Request(url2, callback=self.parse,
+                             cb_kwargs={'page': 2}, dont_filter=True)
 
     def parse(self, response, **kwargs):
         # with open('detail1.html', 'w') as f:
@@ -37,7 +39,6 @@ class MafengwoSpider(scrapy.Spider):
             href = article.xpath('./div/div[2]/h3/a/@href').get()
             yield scrapy.Request(href,
                                  callback=self.parse_detail,
-                                 headers=self.headers,
                                  cb_kwargs={'page': page, 'index': index + 1, 'title': title})
 
     def parse_detail(self, response, **kwargs):

@@ -55,7 +55,8 @@ class SeleniumMiddleware:
         return s
 
     def spider_closed(self):
-        self.browser.quit()
+        # self.browser.quit()
+        pass
 
 
 class TripCrawlerSpiderMiddleware:
